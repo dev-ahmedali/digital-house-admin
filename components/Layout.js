@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-export default function Layout({children}) {
+export default function Layout({ children }) {
   const { data: session } = useSession();
   if (!session) {
     return (
