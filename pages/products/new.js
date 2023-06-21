@@ -8,15 +8,15 @@ export default function NewProduct() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [goToProduct, setGoToProduct] = useState(false);
+  const [goToProducts, setGoToProducts] = useState(false);
 
   const createProduct = async (e) => {
     e.preventDefault();
     const data = { title, description, price };
     await axios.post("/api/products", data);
-    setGoToProduct(true);
+    setGoToProducts(true);
   };
-  if (goToProduct) {
+  if (goToProducts) {
     router.push("/products");
   }
   return (
