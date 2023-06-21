@@ -7,7 +7,7 @@ export default function Products() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios.get("/api/products").then((response) => {
-      console.log(response.data);
+      setProducts(response.data);
     });
   }, []);
   return (
@@ -18,6 +18,24 @@ export default function Products() {
           href={"/products/new"}>
           Add new product
         </Link>
+        <table className="basic mt-2">
+          <thead>
+            <tr>
+              <td>Product name</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td>{product.title}</td>
+                <td>
+                  <Link href={'/products._id' +product._id}>Edit</Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </Layout>
     </>
   );
