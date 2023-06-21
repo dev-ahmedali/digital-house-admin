@@ -1,28 +1,39 @@
-
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-export default function ProductForm() {
-    const router = useRouter()
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+export default function ProductForm({
+  _id,
+  title: existingTitle,
+  description: existingDescription,
+  price: existingPrice,
+}) {
+  const router = useRouter();
+  const [title, setTitle] = useState(existingTitle || "");
+  const [description, setDescription] = useState(existingDescription || "");
+  const [price, setPrice] = useState(existingPrice || "");
   const [goToProducts, setGoToProducts] = useState(false);
+  console.log({ _id });
+  
 
-  const createProduct = async (e) => {
+  const saveProduct = async (e) => {
     e.preventDefault();
     const data = { title, description, price };
-    await axios.post("/api/products", data);
-    setGoToProducts(true);
+    if (_id) {
+      // update
+
+      await axios.put("/api/products/", {...data, _id});
+    } else {
+      await axios.post("/api/products", data);
+      setGoToProducts(true);
+    }
   };
   if (goToProducts) {
     router.push("/products");
   }
   return (
     <>
-      <form onSubmit={createProduct}>
-        <h1>New product</h1>
+      <form onSubmit={saveProduct}>
         <label>Product name</label>
         <input
           value={title}
@@ -47,6 +58,6 @@ export default function ProductForm() {
           Save
         </button>
       </form>
-      </>
-  )
+    </>
+  );
 }
