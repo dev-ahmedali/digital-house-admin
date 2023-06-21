@@ -5,9 +5,9 @@ import { useEffect } from "react";
 
 export default async function Products() {
   useEffect(() => {
-    axios.get("/products").then((res) => {
-      console.log(res.data);
-    });
+    axios.get("/api/products").then(res => {
+      console.log(res.data)
+    })
   }, []);
   return (
     <>

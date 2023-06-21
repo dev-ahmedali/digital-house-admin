@@ -14,10 +14,10 @@ export default function NewProduct() {
     e.preventDefault();
     const data = { title, description, price };
     await axios.post("/api/products", data);
-    setGoToProduct(true)
+    setGoToProduct(true);
   };
-  if(goToProduct) {
-   router.push('/products')
+  if (goToProduct) {
+    router.push("/products");
   }
   return (
     <Layout>
